@@ -15,15 +15,5 @@ class SeleniumWrapper:
         self.driver.find_element(*locator).clear()
         self.driver.find_element(*locator).send_keys(value)
 
-    @wait
-    def select_item(self, locator, *, item):
-        element = self.driver.find_element(*locator)
-        s = Select(element)
-        if isinstance(item, str):
-            s.select_by_visible_text(item)
-        elif isinstance(item, int):
-            s.select_by_index(item)
-        else:
-            raise TypeError
 
 

@@ -1,19 +1,24 @@
 from time import sleep
 from frame_work.Library.selenium_wrapper import SeleniumWrapper
 from pytest import mark
-from frame_work.test_data.input import values
-# header = ["email", "password"]
-# data = [("steve.jobs@gmail.com", "Password123"),
-#         ("")]
+from frame_work.POM import loginpage
+from frame_work.POM import homepage
 
-@mark.parametrize(values)
-def test_login(setup, values):
+
+header = ["email", "password"]
+data = [("steve.jobs@gmail.com", "Password123")]
+
+@mark.parametrize(header, data)
+def test_login(setup, email, password):
+    h1 = homepage.HomePage(setup)
     s = SeleniumWrapper(setup)        # passing the driver instance that is created in 15th line
-    s.click_element(("link text", "Log in"))
+    s1 = loginpage.LoginPage(setup)
+    h1.home_click_login()
     sleep(2)
-    s.enter_text(("id", "Email"), value=values)
+    s1.login_enter_email(email)
     sleep(2)
-    s.enter_text(("id", "Password"), value=values)
+    s1.login_enter_password(password)
     sleep(2)
-    s.click_element(("xpath", "//input[@value='Log in']"))
+    s1.login_click_login()
     sleep(2)
+
